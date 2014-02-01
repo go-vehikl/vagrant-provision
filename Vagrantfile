@@ -18,6 +18,5 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   config.vm.network :private_network, ip: "192.168.33.10"
 
-  config.vm.provision "shell", path: "vagrant-bootstrap.sh"
   config.vm.provision "shell", path: "https://raw.github.com/vehikl/vagrant-provision/master/scripts/start.sh"
 end
