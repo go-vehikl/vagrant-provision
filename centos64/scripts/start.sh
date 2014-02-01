@@ -4,9 +4,6 @@ sudo su -
 
 echo ">>> Starting Install Script"
 
-# Update
-#sudo apt-get update
-
 # Install base items
 echo ">>> Installing Base Items"
 #sudo apt-get install -y vim curl wget build-essential python-software-properties git-core
