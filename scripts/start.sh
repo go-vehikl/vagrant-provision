@@ -5,30 +5,30 @@ echo ">>> Starting Install Script"
 # Update
 sudo apt-get update
 
-# Install MySQL without prompt
+# Install base items
+echo ">>> Installing Base Items"
+sudo apt-get install -y vim curl wget build-essential python-software-properties git-core
+
+# Install Apache2
+echo ">>> Installing Apache"
+sudo apt-get install -y apache2
+
+# Install MySQL
+echo ">>> Installing MySQL"
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
-
-echo ">>> Installing Base Items"
-
-# Install base items
-sudo apt-get install -y vim curl wget build-essential python-software-properties
-
-echo ">>> Adding PPA's and Installing Server Items"
-
-# Add repo for latest PHP
-sudo add-apt-repository -y ppa:ondrej/php5-oldstable
-
-# Update Again
-sudo apt-get update
-
-# Install the Rest
-sudo apt-get install -y git-core php5 apache2 libapache2-mod-php5 php5-mysql php5-curl php5-gd php5-mcrypt php5-xdebug mysql-server
-
-# Make MySQL accessible remotely
+sudo apt-get install -y mysql-server
 mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 mysql -u root -proot -e "CREATE DATABASE development;"
 mysql -u root -proot development < /vagrant/sql/dump.sql
+
+# Install PHP
+echo ">>> Installing PHP"
+sudo add-apt-repository -y ppa:ondrej/php5-oldstable
+sudo apt-get update
+sudo apt-get install -y php5 libapache2-mod-php5 php5-mysql php5-curl php5-gd php5-mcrypt php5-xdebug 
+
+# Make MySQL accessible remotely
 
 echo ">>> Configuring Server"
 
@@ -91,23 +91,3 @@ echo ">>> Linking Webroot"
 cd /var
 sudo rm -rf www
 ln -s /vagrant/src/public www
-
- echo ">>> Installing Composer"
-
-# Composer
-curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
-
-# install composer dependencies
-if [ -f /vagrant/src/composer.json ]; then
-    echo ">>> Installing composer dependencies"
-    cd /vagrant/src
-    composer install --no-scripts
-fi
-
-# seed the development database
-if [ -f /vagrant/src/artisan ]; then
-    echo ">>> Seeding the development database"
-    cd /vagrant/src
-    php artisan migrate --seed
-fi
