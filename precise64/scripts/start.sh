@@ -81,7 +81,7 @@ echo    "<VirtualHost *:80>
 
         </VirtualHost>
 
-        # vim: syntax=apache ts=4 sw=4 sts=4 sr noet" > /etc/apache2/sites-available/default
+        # vim: syntax=apache ts=4 sw=4 sts=4 sr noet" > /etc/apache2/sites-available/000-default.conf
 
 sudo service apache2 restart
 
