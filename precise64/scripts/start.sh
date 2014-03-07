@@ -24,7 +24,7 @@ mysql -u root -proot development < /vagrant/sql/dump.sql
 
 # Install PHP
 echo ">>> Installing PHP"
-sudo add-apt-repository -y ppa:ondrej/php5-oldstable
+sudo add-apt-repository -y ppa:ondrej/php5
 sudo apt-get update
 sudo apt-get install -y php5 libapache2-mod-php5 php5-mysql php5-curl php5-gd php5-mcrypt php5-xdebug 
 
@@ -90,4 +90,4 @@ echo ">>> Linking Webroot"
 
 cd /var
 sudo rm -rf www
-ln -s /vagrant/src/public www
+sudo ln -s /vagrant/src/public www
