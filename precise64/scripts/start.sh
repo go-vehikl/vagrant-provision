@@ -20,7 +20,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 sudo apt-get install -y mysql-server
 mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 mysql -u root -proot -e "CREATE DATABASE development;"
-mysql -u root -proot development < /vagrant/sql/dump.sql
+#mysql -u root -proot development < /vagrant/sql/dump.sql
 
 # Install PHP
 echo ">>> Installing PHP"
