@@ -28,8 +28,7 @@ sudo add-apt-repository -y ppa:ondrej/php5
 sudo apt-get update
 sudo apt-get install -y php5 libapache2-mod-php5 php5-mysql php5-curl php5-gd php5-mcrypt php5-xdebug 
 
-# Make MySQL accessible remotely
-
+# Configure the server
 echo ">>> Configuring Server"
 
 # xdebug Config
